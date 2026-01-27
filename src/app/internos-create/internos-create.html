@@ -1,0 +1,191 @@
+<h2>{{ isEditMode ? 'Editar Interno' : 'Nuevo Interno' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <!-- Información Personal -->
+  <fieldset>
+    <legend>Información Personal</legend>
+
+    <div class="form-group">
+      <label for="id">ID</label>
+      <input id="id" type="text" formControlName="id">
+      <div *ngIf="form.get('id')?.invalid && form.get('id')?.touched" class="error">
+        Campo obligatorio
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="nombres">Nombres</label>
+      <input id="nombres" type="text" formControlName="nombres">
+      <div *ngIf="form.get('nombres')?.invalid && form.get('nombres')?.touched" class="error">
+        Campo obligatorio
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="apellidos">Apellidos</label>
+      <input id="apellidos" type="text" formControlName="apellidos">
+    </div>
+<!-- 
+    <div class="form-group">
+      <label for="sexo">Sexo</label>
+      <select id="sexo" formControlName="sexo">
+        <option value="">Seleccionar</option>
+        <option value="M">Masculino</option>
+        <option value="F">Femenino</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="fechaNacimiento">Fecha de Nacimiento</label>
+      <input id="fechaNacimiento" type="date" formControlName="fechaNacimiento">
+    </div>
+
+    <div class="form-group">
+      <label for="identificacion">Identificación</label>
+      <input id="identificacion" type="text" formControlName="identificacion">
+    </div>
+    -->
+  </fieldset>
+
+  <!-- Ubicación -->
+  <fieldset>
+    <legend>Ubicación</legend>
+
+    <div class="form-group">
+      <label for="idUbicacion">ID Ubicación</label>
+      <input id="idUbicacion" type="number" formControlName="idUbicacion">
+      <div *ngIf="form.get('idUbicacion')?.invalid && form.get('idUbicacion')?.touched" class="error">
+        Campo obligatorio
+      </div>
+    </div>
+
+<!-- #region 
+    <div class="form-group">
+      <label for="idGeografia">ID Geografía</label>
+      <input id="idGeografia" type="number" formControlName="idGeografia">
+    </div>
+
+    <div class="form-group">
+      <label for="pabellon">Pabellón</label>
+      <input id="pabellon" type="text" formControlName="pabellon">
+    </div>
+
+    <div class="form-group">
+      <label for="piso">Piso</label>
+      <input id="piso" type="text" formControlName="piso">
+    </div>
+
+    <div class="form-group">
+      <label for="ala">Ala</label>
+      <input id="ala" type="text" formControlName="ala">
+    </div>
+      -->
+
+  </fieldset>
+
+
+
+  <!-- Estado y Configuración 
+  <fieldset>
+    <legend>Estado y Configuración</legend>
+
+    <div class="form-group">
+      <label for="estado">Estado</label>
+      <select id="estado" formControlName="estado">
+        <option value="ACTIVO">Activo</option>
+        <option value="INACTIVO">Inactivo</option>
+        <option value="LIBRE">Libre</option>
+        <option value="BLOQUEADO">Bloqueado</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="activo">
+        <input id="activo" type="checkbox" formControlName="activo"> Activo
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label for="desarrollo">
+        <input id="desarrollo" type="checkbox" formControlName="desarrollo"> Desarrollo
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label for="cambiarClave">
+        <input id="cambiarClave" type="checkbox" formControlName="cambiarClave"> Cambiar Clave
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label for="requeridoAgente">
+        <input id="requeridoAgente" type="checkbox" formControlName="requeridoAgente"> Requerido Agente
+      </label>
+    </div>
+
+  </fieldset>
+
+
+
+  <fieldset>
+    <legend>Fechas y Números</legend>
+
+    <div class="form-group">
+      <label for="fechaIngreso">Fecha de Ingreso</label>
+      <input id="fechaIngreso" type="datetime-local" formControlName="fechaIngreso">
+    </div>
+
+    <div class="form-group">
+      <label for="fechaHoraRegistro">Fecha/Hora Registro</label>
+      <input id="fechaHoraRegistro" type="number" formControlName="fechaHoraRegistro">
+    </div>
+
+    <div class="form-group">
+      <label for="fechaHoraUltimaLlamada">Fecha/Hora Última Llamada</label>
+      <input id="fechaHoraUltimaLlamada" type="number" formControlName="fechaHoraUltimaLlamada">
+    </div>
+
+    <div class="form-group">
+      <label for="prefijoPenal">Prefijo Penal</label>
+      <input id="prefijoPenal" type="number" formControlName="prefijoPenal">
+    </div>
+  </fieldset>
+
+  
+  <fieldset>
+    <legend>Otros</legend>
+
+    <div class="form-group">
+      <label for="clave">Clave</label>
+      <input id="clave" type="password" formControlName="clave">
+    </div>
+
+    <div class="form-group">
+      <label for="cortesia">Cortesía</label>
+      <input id="cortesia" type="number" step="0.01" formControlName="cortesia">
+    </div>
+
+    <div class="form-group">
+      <label for="idPerfil">ID Perfil</label>
+      <input id="idPerfil" type="number" formControlName="idPerfil">
+    </div>
+
+    <div class="form-group">
+      <label for="tratamientoDatos">Tratamiento de Datos</label>
+      <input id="tratamientoDatos" type="number" formControlName="tratamientoDatos">
+    </div>
+  </fieldset>
+-->
+
+  <button type="submit" [disabled]="form.invalid">
+    {{ isEditMode ? 'Actualizar' : 'Crear' }}
+  </button>
+  
+<button type="button" (click)="goBack()">
+  Volver
+</button>
+
+</form>

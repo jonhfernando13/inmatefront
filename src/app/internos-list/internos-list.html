@@ -1,0 +1,83 @@
+<div class="container">
+  <h2>Lista de Internos</h2>
+
+  <!-- Botón para crear nuevo interno -->
+  <div class="actions">
+    <a routerLink="/internos/create" class="btn btn-primary">
+      + Crear Nuevo Interno
+    </a>
+  </div>
+
+  <!-- Mensaje de carga -->
+  <div *ngIf="isLoading" class="loading">
+    Cargando internos...
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Tabla de internos -->
+  <div *ngIf="!isLoading && !errorMessage" class="table-container">
+    <table *ngIf="internos.length > 0; else noData">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Identificación</th>
+          <th>Pabellón</th>
+          <th>Piso</th>
+          <th>Ala</th>
+          <th>Estado</th>
+          <th>Sexo</th>
+          <th>Fecha Ingreso</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let interno of internos">
+          <td>{{ interno.id }}</td>
+          <td>{{ interno.nombres }}</td>
+          <td>{{ interno.apellidos || '-' }}</td>
+          <td>{{ interno.identificacion || '-' }}</td>
+          <td>{{ interno.pabellon || '-' }}</td>
+          <td>{{ interno.piso || '-' }}</td>
+          <td>{{ interno.ala || '-' }}</td>
+          <td>
+            <span class="badge" [ngClass]="'badge-' + (interno.estado || 'activo').toLowerCase()">
+              {{ interno.estado || 'ACTIVO' }}
+            </span>
+          </td>
+          <td>{{ interno.sexo || '-' }}</td>
+          <td>{{ interno.fechaIngreso ? (interno.fechaIngreso | date:'dd/MM/yyyy') : '-' }}</td>
+          <td class="actions-cell">
+            <button 
+              [routerLink]="['/internos/edit', interno.id]" 
+              class="btn btn-edit"
+              title="Editar">
+              ✏️
+            </button>
+            <button 
+              (click)="deleteInterno(interno.id)" 
+              class="btn btn-delete"
+              title="Eliminar">
+              🗑️
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Mensaje cuando no hay datos -->
+    <ng-template #noData>
+      <div class="no-data">
+        <p>No hay internos registrados.</p>
+        <a routerLink="/internos/create" class="btn btn-primary">
+          Crear el primer interno
+        </a>
+      </div>
+    </ng-template>
+  </div>
+</div>
