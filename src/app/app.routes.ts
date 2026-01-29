@@ -5,8 +5,8 @@ import { InternoCreateComponent } from './internos-create/internos-create';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'internos', pathMatch: 'full' },
-  { path: 'internos', component: InternosList,
-    runGuardsAndResolvers: 'paramsOrQueryParamsChange' // Cambiar a este valor
-  },
+  { path: 'internos', component: InternosList,runGuardsAndResolvers: 'paramsOrQueryParamsChange'},
   { path: 'internos/create', component: InternoCreateComponent },
+  { path: '**', redirectTo: 'internos' },
+  { path: 'internos/edit', redirectTo: 'internos/edit/' },
 ];

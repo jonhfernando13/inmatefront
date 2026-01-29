@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd,ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +23,7 @@ export class InternosList implements OnInit, OnDestroy {
   isLoading = false;
   errorMessage: string | null = null;
   private route = inject(ActivatedRoute);
-  
+  private cdr = inject(ChangeDetectorRef);
 
 
   ngOnInit(): void {
@@ -51,6 +51,7 @@ export class InternosList implements OnInit, OnDestroy {
           console.log('📊 Cantidad de internos:', data.length);
           this.internos = data;
           this.isLoading = false;
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('❌ Error al cargar internos:', err);
@@ -59,7 +60,7 @@ export class InternosList implements OnInit, OnDestroy {
           this.errorMessage = 'Error al conectar con la API: ' + (err.status || 'Sin conexión');
           this.isLoading = false;
         },
-        complete: () => {
+        complete: () => { 
           console.log('🏁 Carga completada');
         }
       });
