@@ -4,8 +4,8 @@ import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { InternoService } from '../services/internos.service';
-import { Interno } from '../models/interno.model';
+import { Interno } from '../../domain/interno.model';
+import { InternosCreateVm } from '../../viewmodels/internos-create.vm';
 
 @Component({
   selector: 'app-interno-create',
@@ -15,7 +15,7 @@ import { Interno } from '../models/interno.model';
   styleUrl: './internos-create.css'
 })
 export class InternoCreateComponent implements OnInit, OnDestroy {
-  private internoService = inject(InternoService);
+  private vm = inject(InternosCreateVm);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
@@ -24,7 +24,6 @@ export class InternoCreateComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   isEditMode = false;
   isSubmitting = false;
-  isLoading = false;
   errorMessage: string | null = null;
 
   ngOnInit(): void {
@@ -75,7 +74,7 @@ export class InternoCreateComponent implements OnInit, OnDestroy {
   }
 
   private loadInterno(id: string): void {
-    this.internoService.getById(id)
+    this.vm.getById(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (interno) => {
@@ -104,20 +103,17 @@ export class InternoCreateComponent implements OnInit, OnDestroy {
     // LIMPIEZA: Convertir valores antes de enviar
     const formValue = this.cleanFormData(this.form.value);
 
-    console.log('Datos a enviar:', formValue); // DEBUG
-
     const operation = this.isEditMode
-      ? this.internoService.update(formValue.id, formValue)
-      : this.internoService.create(formValue as Interno);
+      ? this.vm.update(formValue.id, formValue)
+      : this.vm.create(formValue as Interno);
 
     operation
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
           alert(this.isEditMode ? 'Interno actualizado con éxito' : 'Interno creado con éxito');
-          // SOLUCIÓN SIMPLE: Navegar y recargar la ventana
-          this.router.navigate(['/internos']).then(() => {
-            window.location.reload();
+          this.router.navigate(['/internos'], {
+            queryParams: { refresh: Date.now() }
           });
         },
         error: (err) => {
@@ -192,8 +188,8 @@ export class InternoCreateComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.router.navigate(['/internos']).then(() => {
-      window.location.reload();
+    this.router.navigate(['/internos'], {
+      queryParams: { refresh: Date.now() }
     });
   }
 

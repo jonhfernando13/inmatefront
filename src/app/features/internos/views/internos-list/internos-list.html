@@ -8,19 +8,20 @@
     </a>
   </div>
 
-  <!-- Mensaje de carga -->
-  <div *ngIf="isLoading" class="loading">
-    Cargando internos...
-  </div>
+  <ng-container *ngIf="(internos$ | async) as internos">
+    <!-- Mensaje de carga -->
+    <div *ngIf="(loading$ | async)" class="loading">
+      Cargando internos...
+    </div>
 
-  <!-- Mensaje de error -->
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
+    <!-- Mensaje de error -->
+    <div *ngIf="(error$ | async) as error" class="error-message">
+      {{ error }}
+    </div>
 
-  <!-- Tabla de internos -->
-  <div *ngIf="!isLoading && !errorMessage" class="table-container">
-    <table *ngIf="internos.length > 0; else noData">
+    <!-- Tabla de internos -->
+    <div *ngIf="!(loading$ | async) && !(error$ | async)" class="table-container">
+      <table *ngIf="internos.length > 0; else noData">
       <thead>
         <tr>
           <th>ID</th>
@@ -68,16 +69,17 @@
           </td>
         </tr>
       </tbody>
-    </table>
+      </table>
 
-    <!-- Mensaje cuando no hay datos -->
-    <ng-template #noData>
-      <div class="no-data">
-        <p>No hay internos registrados.</p>
-        <a routerLink="/internos/create" class="btn btn-primary">
-          Crear el primer interno
-        </a>
-      </div>
-    </ng-template>
-  </div>
+      <!-- Mensaje cuando no hay datos -->
+      <ng-template #noData>
+        <div class="no-data">
+          <p>No hay internos registrados.</p>
+          <a routerLink="/internos/create" class="btn btn-primary">
+            Crear el primer interno
+          </a>
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
 </div>

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, timeout, catchError } from 'rxjs';
-import { Interno } from '../models/interno.model';
+import { Interno } from '../../features/internos/domain/interno.model';
 
 @Injectable({
   providedIn: 'root'
