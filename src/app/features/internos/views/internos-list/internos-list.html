@@ -3,7 +3,7 @@
 
   <!-- Botón para crear nuevo interno -->
   <div class="actions">
-    <a routerLink="/internos/create" class="btn btn-primary">
+    <a routerLink="/interno/create" class="btn btn-primary">
       + Crear Nuevo Interno
     </a>
   </div>
@@ -55,7 +55,7 @@
           <td>{{ interno.fechaIngreso ? (interno.fechaIngreso | date:'dd/MM/yyyy') : '-' }}</td>
           <td class="actions-cell">
             <button 
-              [routerLink]="['/internos/edit', interno.id]" 
+              [routerLink]="['/interno/edit', interno.id]" 
               class="btn btn-edit"
               title="Editar">
               ✏️
@@ -75,7 +75,7 @@
       <ng-template #noData>
         <div class="no-data">
           <p>No hay internos registrados.</p>
-          <a routerLink="/internos/create" class="btn btn-primary">
+          <a routerLink="/interno/create" class="btn btn-primary">
             Crear el primer interno
           </a>
         </div>

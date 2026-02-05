@@ -112,7 +112,7 @@ export class InternoCreateComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           alert(this.isEditMode ? 'Interno actualizado con éxito' : 'Interno creado con éxito');
-          this.router.navigate(['/internos'], {
+          this.router.navigate(['/interno'], {
             queryParams: { refresh: Date.now() }
           });
         },
@@ -188,7 +188,7 @@ export class InternoCreateComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.router.navigate(['/internos'], {
+    this.router.navigate(['/interno'], {
       queryParams: { refresh: Date.now() }
     });
   }

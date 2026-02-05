@@ -1,8 +1,15 @@
-<nav style="padding: 20px; background: #f4f4f4;">
-  <a routerLink="/">Ver Lista</a> | 
-  <a routerLink="/internos/create">Crear Nuevo Interno</a>
+<nav class="app-nav">
+  <a routerLink="/interno">Ver Lista</a>
+  <a routerLink="/interno/create">Crear Nuevo Interno</a>
+  <span class="spacer"></span>
+  <ng-container *ngIf="(isAuthenticated$ | async); else loginLink">
+    <button type="button" class="link-button" (click)="logout()">Salir</button>
+  </ng-container>
+  <ng-template #loginLink>
+    <a routerLink="/login">Ingresar</a>
+  </ng-template>
 </nav>
 
-<main style="padding: 20px;">
+<main class="app-main">
   <router-outlet></router-outlet>
 </main>
