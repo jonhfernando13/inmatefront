@@ -8,13 +8,13 @@
 
     <form [formGroup]="form" (ngSubmit)="submit()" class="login-form">
       <label class="field">
-        <span>Usuario</span>
-        <input type="text" formControlName="username" placeholder="Tu usuario" />
+        <span>Nombre</span>
+        <input type="text" formControlName="nombres" placeholder="Tu nombre" />
       </label>
 
       <label class="field">
-        <span>Contrasena</span>
-        <input type="password" formControlName="password" placeholder="Tu contrasena" />
+        <span>Clave</span>
+        <input type="password" formControlName="clave" placeholder="Tu clave" />
       </label>
 
       <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>

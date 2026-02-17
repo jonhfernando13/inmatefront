@@ -3,12 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 interface LoginRequest {
-  username: string;
-  password: string;
+  nombres: string;
+  clave: string;
 }
 
 interface LoginResponse {
-  token: string;
+  access_token: string;
+  token_type: string;
+  user?: {
+    id: number;
+    nombres: string;
+  };
 }
 
 @Injectable({
@@ -16,7 +21,7 @@ interface LoginResponse {
 })
 export class AuthService {
   private readonly tokenKey = 'auth_token';
-  private readonly loginUrl = '/auth/login';
+  private readonly loginUrl = 'http://127.0.0.1:8000/auth/login';
 
   private authState$ = new BehaviorSubject<boolean>(this.hasToken());
 
@@ -25,8 +30,8 @@ export class AuthService {
   login(credentials: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.loginUrl, credentials).pipe(
       tap((response) => {
-        if (response?.token) {
-          this.setToken(response.token);
+        if (response?.access_token) {
+          this.setToken(response.access_token);
         }
       })
     );
